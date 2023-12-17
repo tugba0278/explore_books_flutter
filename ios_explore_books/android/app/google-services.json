@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "120323556016",
+    "project_id": "iosexplorebooks",
+    "storage_bucket": "iosexplorebooks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:120323556016:android:2be13de86870b14825b175",
+        "android_client_info": {
+          "package_name": "com.example.ios_explore_books"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQHaRLJ8IZTT8e8_iBdMrZuj8dFWbca48"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
