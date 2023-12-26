@@ -141,12 +141,12 @@ class _LoginUserState extends State<LoginUser> {
                             );
                             // ignore: use_build_context_synchronously
                             Navigator.of(context).pushNamedAndRemoveUntil(
-                                bookGenreSelectionRoute, (route) => false);
+                                homepageRoute, (route) => false);
                           } catch (e) {
                             print(e.toString());
                             showUserNotFoundDialog(
                               context,
-                              "Kullanıcı Bulunmadı",
+                              "Kullanıcı Bulunamadı",
                             );
                           }
                         },
@@ -255,19 +255,4 @@ class _LoginUserState extends State<LoginUser> {
       ),
     );
   }
-
-  // void _getUserData() async {
-  //   var userData = await _firestoreService.getUserData();
-  //   if (userData != null) {
-  //     print('User data: $userData');
-  //   } else {
-  //     print('Error getting user data.');
-  //   }
-  // }
 }
-// Navigator.push(
-//                               context,
-//                               MaterialPageRoute(
-//                                   builder: (context) =>
-//                                       const BookGenreSelection()) //3_kitaptürüseçme sayfasına yönlendirir
-//                               );

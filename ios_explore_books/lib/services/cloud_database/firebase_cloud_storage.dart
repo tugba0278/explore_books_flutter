@@ -22,7 +22,7 @@ class FirebaseCloudStorage {
   // Grabbing all the notes, a [CollectionReference] is like a stream for both,
   // reading and writing
   final users = FirebaseFirestore.instance.collection(usersCollectionName);
-  final ownerUserId = FirebaseAuth.instance.currentUser!.uid;
+  final ownerUserId = FirebaseAuth.instance.currentUser?.uid;
 
   // A [Stream] is a sequence of asynchronous events.
   // It represents a flow of data that you can listen to over time.
@@ -69,19 +69,20 @@ class FirebaseCloudStorage {
   }
 
   // R: A function to get user genres by user ID
-  Future<Iterable<List<String>>> getGenres() async {
-    // We are going to do a search inside or notes [CollectionReference] using
-    // the .where clause. This clause can throw an exception
+  Future<List<String>> getGenres() async {
     try {
-      return await users
-          .where(ownerUserIdFieldName, isEqualTo: ownerUserId)
-          .get()
-          .then(
-            (value) => value.docs.map(
-              (user) => CloudUser.fromSnapshot(user).genre,
-            ),
-          );
+      var querySnapshot =
+          await users.where(ownerUserIdFieldName, isEqualTo: ownerUserId).get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        var user = CloudUser.fromSnapshot(querySnapshot.docs.first);
+        return user.genre;
+      } else {
+        // User not found or has no genres
+        return [];
+      }
     } catch (e) {
+      print(e.toString());
       throw CouldNotGetAllUserException();
     }
   }

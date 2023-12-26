@@ -113,15 +113,16 @@ class _BookGenreSelectionState extends State<BookGenreSelection> {
   }
 
   void toggleGenreSelection(String genre) {
+    genre = genre.toLowerCase();
     //widget içindeki durumu değiştirmek için kullanılır
     setState(() {
       //seçilen değer ekliyse listeden çıkarsın
       if (selectedGenres.contains(genre)) {
-        selectedGenres.remove(genre.toLowerCase());
+        selectedGenres.remove(genre);
       }
       //listede yoksa eklesin
       else {
-        selectedGenres.add(genre.toLowerCase());
+        selectedGenres.add(genre);
       }
     });
   }

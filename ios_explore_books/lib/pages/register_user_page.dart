@@ -4,6 +4,7 @@ import 'package:ios_explore_books/routes.dart';
 import 'package:ios_explore_books/services/cloud_database/firebase_cloud_storage.dart';
 
 import 'package:ios_explore_books/user_auth/firebase_auth_implementations/firebase_auth.services.dart';
+import 'package:ios_explore_books/utilities/dialogs/email_already_in_use_dialog.dart';
 
 class RegisterUser extends StatefulWidget {
   const RegisterUser({super.key});
@@ -249,8 +250,13 @@ class _MyFormState extends State<RegisterUser> {
                           onTap: _signUp,
                           child: Container(
                             decoration: BoxDecoration(
-                                color: const Color(0xFFD4A7A7),
-                                borderRadius: BorderRadius.circular(20.0)),
+                              color: const Color(0xFFD4A7A7),
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                                //butonun yazı ile arasındaki mesafe
+                                vertical: 5, //dikeyde
+                                horizontal: 40), //yatayda
                             child: const Text(
                               'KAYDOL',
                               style: TextStyle(
@@ -275,24 +281,45 @@ class _MyFormState extends State<RegisterUser> {
   }
 
   void _signUp() async {
+    //String userName = _fullNameController.text;
+    //String phoneNumber = _phoneNumberController.text;
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    User? user = await _auth.signUpWithEmailAndPassword(email, password);
+    try {
+      User? user = await _auth.signUpWithEmailAndPassword(email, password);
 
-    if (user != null) {
-      print("user is succesfully created");
-      print(user.toString());
-      final userDocument = _fireBaseCloudStorage.createNewUser(
-        ownerUserId: user.uid,
-        fullName: _fullNameController.text,
-        phoneNumber: _phoneNumberController.text,
-      );
-      // ignore: use_build_context_synchronously
-      Navigator.pushNamedAndRemoveUntil(
-          context, loginPageRoute, (route) => false);
-    } else {
-      print("some error happened");
+      if (user != null) {
+        print("user is succesfully created");
+        print(user.toString());
+        final userDocument = _fireBaseCloudStorage.createNewUser(
+          ownerUserId: user.uid,
+          fullName: _fullNameController.text,
+          phoneNumber: _phoneNumberController.text,
+        );
+        // ignore: use_build_context_synchronously
+        Navigator.pushNamedAndRemoveUntil(
+            context, loginPageRoute, (route) => false);
+      }
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        // Check the error code to determine the specific error
+        if (e.code == 'email-already-in-use') {
+          // Handle the case where the email address is already in use
+          print('The email address is already in use by another account.');
+          // ignore: use_build_context_synchronously
+          showEmailAlreadyInUseDialog(context,
+              'The email address is already in use by another account.');
+          // You might want to inform the user or take appropriate action.
+        } else {
+          // Handle other FirebaseAuthException errors
+          print('Firebase Authentication Error: ${e.message}');
+        }
+      } else {
+        // Handle other non-FirebaseAuthException errors
+        print('Error: $e');
+      }
+      return null;
     }
   }
 }

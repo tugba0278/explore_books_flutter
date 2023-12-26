@@ -21,5 +21,8 @@ class CloudUser {
         ownerUserId = snapshot.data()[ownerUserIdFieldName],
         fullName = snapshot.data()[fullNameFieldName],
         phoneNumber = snapshot.data()[phoneNumberFieldName],
-        genre = snapshot.data()[genreFieldName] as List<String>;
+        genre = (snapshot.data()[genreFieldName] as List<dynamic>?)
+                ?.map((element) => element as String)
+                .toList() ??
+            [];
 }
