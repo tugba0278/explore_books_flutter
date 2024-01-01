@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ios_explore_books/routes.dart';
-import 'package:ios_explore_books/services/cloud_database/firebase_cloud_storage.dart';
+import 'package:ios_explore_books/services/cloud_database/firebase_cloud_users_crud.dart';
 
 import 'package:ios_explore_books/user_auth/firebase_auth_implementations/firebase_auth.services.dart';
 import 'package:ios_explore_books/utilities/dialogs/email_already_in_use_dialog.dart';

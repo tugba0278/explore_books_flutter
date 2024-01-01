@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ios_explore_books/pages/book_genre_selection_page.dart';
 import 'package:ios_explore_books/routes.dart';
-import 'package:ios_explore_books/services/cloud_database/firebase_cloud_storage.dart';
+import 'package:ios_explore_books/services/cloud_database/firebase_cloud_users_crud.dart';
 import 'package:ios_explore_books/utilities/dialogs/logout_dialog.dart';
+import 'package:anim_search_bar/anim_search_bar.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -17,6 +18,7 @@ class _HomepageState extends State<Homepage> {
   final FirebaseCloudStorage _fireBaseCloudStorage = FirebaseCloudStorage();
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  TextEditingController textController = TextEditingController();
 
   late User _user;
   late String _userName;
@@ -77,7 +79,18 @@ class _HomepageState extends State<Homepage> {
                     },
                   ),
                 ),
-                actions: [],
+                actions: const [
+                  // AnimSearchBar(
+                  //   width: 400,
+                  //   textController: textController,
+                  //   onSuffixTap: () {
+                  //     setState(() {
+                  //       textController.clear();
+                  //     });
+                  //   },
+                  //   onSubmitted: () {},
+                  // )
+                ],
               ),
               drawer: Drawer(
                 shape: const RoundedRectangleBorder(
@@ -130,7 +143,11 @@ class _HomepageState extends State<Homepage> {
                                   fontSize: 20,
                                 ),
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).popAndPushNamed(
+                                  romanBooksRoute,
+                                );
+                              },
                             ),
                             ListTile(
                               contentPadding:
@@ -142,7 +159,11 @@ class _HomepageState extends State<Homepage> {
                                   fontSize: 20,
                                 ),
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).popAndPushNamed(
+                                  polisiyeBooksRoute,
+                                );
+                              },
                             ),
                             ListTile(
                               contentPadding:
@@ -154,7 +175,11 @@ class _HomepageState extends State<Homepage> {
                                   fontSize: 20,
                                 ),
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).popAndPushNamed(
+                                  poemBooksRoute,
+                                );
+                              },
                             ),
                             ListTile(
                               contentPadding:
@@ -166,7 +191,11 @@ class _HomepageState extends State<Homepage> {
                                   fontSize: 20,
                                 ),
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).popAndPushNamed(
+                                  childBooksRoute,
+                                );
+                              },
                             ),
                             ListTile(
                               contentPadding:
@@ -178,7 +207,11 @@ class _HomepageState extends State<Homepage> {
                                   fontSize: 20,
                                 ),
                               ),
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.of(context).popAndPushNamed(
+                                  religiousBooksRoute,
+                                );
+                              },
                             ),
                             ListTile(
                               contentPadding:
@@ -251,7 +284,11 @@ class _HomepageState extends State<Homepage> {
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold),
                           ),
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.of(context).popAndPushNamed(
+                              authorListRoute,
+                            );
+                          },
                         ),
                         const SizedBox(height: 20),
                         ListTile(
@@ -263,7 +300,7 @@ class _HomepageState extends State<Homepage> {
                                 fontWeight: FontWeight.bold),
                           ),
                           onTap: () {
-                            Navigator.pop(context);
+                            Navigator.of(context).pushNamed(aboutRoute);
                             // Hakkımızda sayfasına yönlendirme işlemleri eklenecek
                           },
                         ),
@@ -277,7 +314,7 @@ class _HomepageState extends State<Homepage> {
                                 fontWeight: FontWeight.bold),
                           ),
                           onTap: () {
-                            Navigator.pop(context);
+                            Navigator.of(context).pushNamed(settingsRoute);
                             // Ayarlar sayfasına yönlendirme işlemleri eklenecek
                           },
                         ),

@@ -1,8 +1,8 @@
 // moving away from the local database
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ios_explore_books/services/cloud_database/cloud_storage_constants.dart';
-import 'package:ios_explore_books/services/cloud_database/cloud_storage_exceptions.dart';
+import 'package:ios_explore_books/services/cloud_database/cloud_constants.dart';
+import 'package:ios_explore_books/services/cloud_database/cloud_user_exceptions.dart';
 import 'package:ios_explore_books/services/cloud_database/cloud_user.dart';
 
 class FirebaseCloudStorage {

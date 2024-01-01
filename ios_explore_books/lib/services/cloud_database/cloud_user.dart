@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ios_explore_books/services/cloud_database/cloud_storage_constants.dart';
+import 'package:ios_explore_books/services/cloud_database/cloud_constants.dart';
 
 class CloudUser {
   final String fullName;
