@@ -5,7 +5,7 @@ import 'package:ios_explore_books/pages/book_genre_selection_page.dart';
 import 'package:ios_explore_books/routes.dart';
 import 'package:ios_explore_books/services/cloud_database/firebase_cloud_users_crud.dart';
 import 'package:ios_explore_books/utilities/dialogs/logout_dialog.dart';
-import 'package:anim_search_bar/anim_search_bar.dart';
+//import 'package:anim_search_bar/anim_search_bar.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -125,7 +125,7 @@ class _HomepageState extends State<Homepage> {
                         // ),
                         ExpansionTile(
                           title: const Text(
-                            'KİTAP TÜRLERİ',
+                            'Kitap Türleri',
                             style: TextStyle(
                                 fontFamily: 'Courier',
                                 fontSize: 25,
@@ -278,7 +278,7 @@ class _HomepageState extends State<Homepage> {
                         const SizedBox(height: 20),
                         ListTile(
                           title: const Text(
-                            'YAZAR LİSTESİ',
+                            'Yazar Listesi',
                             style: TextStyle(
                                 fontFamily: 'Courier',
                                 fontSize: 25,
@@ -293,7 +293,7 @@ class _HomepageState extends State<Homepage> {
                         const SizedBox(height: 20),
                         ListTile(
                           title: const Text(
-                            'HAKKIMIZDA',
+                            'Hakkımızda',
                             style: TextStyle(
                                 fontFamily: 'Courier',
                                 fontSize: 25,
@@ -307,7 +307,7 @@ class _HomepageState extends State<Homepage> {
                         const SizedBox(height: 20),
                         ListTile(
                           title: const Text(
-                            'AYARLAR',
+                            'Ayarlar',
                             style: TextStyle(
                                 fontFamily: 'Courier',
                                 fontSize: 25,
@@ -321,7 +321,7 @@ class _HomepageState extends State<Homepage> {
                         const SizedBox(height: 20),
                         ListTile(
                           title: const Text(
-                            'ÇIKIŞ YAP',
+                            'Çıkış Yap',
                             style: TextStyle(
                                 fontFamily: 'Courier',
                                 fontSize: 25,
