@@ -293,6 +293,21 @@ class _HomepageState extends State<Homepage> {
                         const SizedBox(height: 20),
                         ListTile(
                           title: const Text(
+                            'Tür Seçimi',
+                            style: TextStyle(
+                                fontFamily: 'Courier',
+                                fontSize: 25,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          onTap: () {
+                            Navigator.of(context)
+                                .pushNamed(bookGenreSelectionRoute);
+                          },
+                        ),
+
+                        const SizedBox(height: 20),
+                        ListTile(
+                          title: const Text(
                             'Hakkımızda',
                             style: TextStyle(
                                 fontFamily: 'Courier',

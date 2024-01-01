@@ -71,8 +71,10 @@ class FirebaseCloudStorage {
   // R: A function to get user genres by user ID
   Future<List<String>> getGenres() async {
     try {
-      var querySnapshot =
-          await users.where(ownerUserIdFieldName, isEqualTo: ownerUserId).get();
+      var querySnapshot = await users
+          .where(ownerUserIdFieldName,
+              isEqualTo: FirebaseAuth.instance.currentUser?.uid)
+          .get();
 
       if (querySnapshot.docs.isNotEmpty) {
         var user = CloudUser.fromSnapshot(querySnapshot.docs.first);
@@ -96,10 +98,9 @@ class FirebaseCloudStorage {
       final querySnapshot = await users
           .where(
             ownerUserIdFieldName,
-            isEqualTo: ownerUserId,
+            isEqualTo: FirebaseAuth.instance.currentUser?.uid,
           )
           .get();
-
       if (querySnapshot.docs.isNotEmpty) {
         final documentId = querySnapshot.docs[0].id;
         await users.doc(documentId).update({genreFieldName: genre});

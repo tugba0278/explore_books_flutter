@@ -97,6 +97,7 @@ class _MyFormState extends State<RegisterUser> {
                           if (value == null || value.isEmpty) {
                             return 'Lütfen adınızı ve soyadınızı girin'; //tam ad girilmediyse bu mesaj iletilir
                           }
+                          print(value);
                           return null; //tam ad geçerli
                         },
                       ),
@@ -281,45 +282,44 @@ class _MyFormState extends State<RegisterUser> {
   }
 
   void _signUp() async {
-    //String userName = _fullNameController.text;
-    //String phoneNumber = _phoneNumberController.text;
-    String email = _emailController.text;
-    String password = _passwordController.text;
+    if (_formKey.currentState!.validate()) {
+      String email = _emailController.text;
+      String password = _passwordController.text;
 
-    try {
-      User? user = await _auth.signUpWithEmailAndPassword(email, password);
-
-      if (user != null) {
-        print("user is succesfully created");
-        print(user.toString());
-        final userDocument = _fireBaseCloudStorage.createNewUser(
-          ownerUserId: user.uid,
-          fullName: _fullNameController.text,
-          phoneNumber: _phoneNumberController.text,
-        );
-        // ignore: use_build_context_synchronously
-        Navigator.pushNamedAndRemoveUntil(
-            context, loginPageRoute, (route) => false);
-      }
-    } catch (e) {
-      if (e is FirebaseAuthException) {
-        // Check the error code to determine the specific error
-        if (e.code == 'email-already-in-use') {
-          // Handle the case where the email address is already in use
-          print('The email address is already in use by another account.');
+      try {
+        User? user = await _auth.signUpWithEmailAndPassword(email, password);
+        if (user != null) {
+          print("user is succesfully created");
+          print(user.toString());
+          final userDocument = _fireBaseCloudStorage.createNewUser(
+            ownerUserId: user.uid,
+            fullName: _fullNameController.text,
+            phoneNumber: _phoneNumberController.text,
+          );
           // ignore: use_build_context_synchronously
-          showEmailAlreadyInUseDialog(context,
-              'The email address is already in use by another account.');
-          // You might want to inform the user or take appropriate action.
-        } else {
-          // Handle other FirebaseAuthException errors
-          print('Firebase Authentication Error: ${e.message}');
+          Navigator.pushNamedAndRemoveUntil(
+              context, loginPageRoute, (route) => false);
         }
-      } else {
-        // Handle other non-FirebaseAuthException errors
-        print('Error: $e');
+      } catch (e) {
+        if (e is FirebaseAuthException) {
+          // Check the error code to determine the specific error
+          if (e.code == 'email-already-in-use') {
+            // Handle the case where the email address is already in use
+            print('The email address is already in use by another account.');
+            // ignore: use_build_context_synchronously
+            showEmailAlreadyInUseDialog(context,
+                'The email address is already in use by another account.');
+            // You might want to inform the user or take appropriate action.
+          } else {
+            // Handle other FirebaseAuthException errors
+            print('Firebase Authentication Error: ${e.message}');
+          }
+        } else {
+          // Handle other non-FirebaseAuthException errors
+          print('Error: $e');
+        }
+        return null;
       }
-      return null;
     }
   }
 }

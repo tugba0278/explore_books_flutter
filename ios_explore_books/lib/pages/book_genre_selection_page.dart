@@ -81,10 +81,10 @@ class _BookGenreSelectionState extends State<BookGenreSelection> {
                           backgroundColor:
                               MaterialStateProperty.resolveWith<Color>(
                             (Set<MaterialState> states) {
-                              if (states.contains(MaterialState.pressed) ||
-                                  states.contains(MaterialState.selected)) {
-                                // Buton tıklandığında (seçildiğinde) rengi
-                                return const Color.fromARGB(255, 188, 170, 164);
+                              if (selectedGenres
+                                  .contains(genre.toLowerCase())) {
+                                return const Color.fromARGB(255, 191, 147,
+                                    131); // Seçilen tür için mavi renk
                               }
                               // Normal durumda buton rengi
                               return const Color(0xFFEFE7C9);
@@ -130,64 +130,9 @@ class _BookGenreSelectionState extends State<BookGenreSelection> {
   //bir sonraki sayfaya geçmek için kullanılan fonksiyon
   void navigateToNextPage() {
     //yeni bir sayfaya geçiş yapmamızı sağlar
-    Navigator.push(
-      context,
-      //sayfalar arası geçişin animasyonlu bir şekilde geçişini sağlar
-      MaterialPageRoute(
-        //geçiş yapılan sayfanın nasıl oluşturulacağını belirler
-        builder: (context) => SelectedGenrePage(selectedGenres),
-      ),
-    );
-  }
-}
-
-//geçiş yapılan sayfanın özellikleri
-class SelectedGenrePage extends StatelessWidget {
-  final List<String> selectedGenres;
-
-  const SelectedGenrePage(this.selectedGenres, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Seçilen Türler'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Seçili Türler : ${selectedGenres.join(", ").toUpperCase()}',
-              style: const TextStyle(fontSize: 20),
-              textAlign: TextAlign.center,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: ElevatedButton(
-        onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
-          homepageRoute,
-          (_) => false,
-        ), //butona tıklandığında bir sonraki sayfaya geçer
-        style: ElevatedButton.styleFrom(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius
-                  .zero, //buton köşesinin oval olmaması için zero seçildi
-            ),
-            backgroundColor: Colors.black, //buton rengi
-            minimumSize: const Size(60, 40)), //buton genişliği ve yüksekliği
-        child: const Text(
-          //text özelleştirme
-          'İLERİ',
-          style: TextStyle(
-              color: Colors.white, //yazı rengi
-              fontSize: 20 //yazı boyutu
-              ),
-        ),
-      ),
+    Navigator.of(context).pushNamedAndRemoveUntil(
+      homepageRoute,
+      (_) => false,
     );
   }
 }

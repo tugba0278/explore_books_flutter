@@ -80,6 +80,15 @@ class _LoginUserState extends State<LoginUser> {
                             vertical: 15.0,
                           ),
                         ),
+                        validator: (value) {
+                          //e-mail input girilip girilmediğini kontrol eder
+                          if (value == null || value.isEmpty) {
+                            return 'Lütfen e-posta adresinizi girin'; //e-mail girilmediyse bu mesaj iletilir
+                          } else if (!value.contains('@')) {
+                            return 'Geçerli bir e-posta adresi girin'; //@ işaretini içermezse bu mesaj iletilir
+                          }
+                          return null; //e-mail geçerli
+                        },
                       ),
                       const SizedBox(height: 30), //textboxlar arasındaki mesafe
                       const Text(
@@ -118,6 +127,13 @@ class _LoginUserState extends State<LoginUser> {
                             vertical: 15.0,
                           ),
                         ),
+                        validator: (value) {
+                          //parola input girilip girilmediğini kontrol eder
+                          if (value == null || value.isEmpty) {
+                            return 'Lütfen parolanızı girin'; //parola girilmediyse bu mesaj iletilir
+                          }
+                          return null; //parola geçerli
+                        },
                       ),
                       const SizedBox(
                           height:
@@ -131,23 +147,25 @@ class _LoginUserState extends State<LoginUser> {
                       ElevatedButton(
                         //giriş yap butonu
                         onPressed: () async {
-                          final email = _emailController.text;
-                          final password = _passwordController.text;
-                          try {
-                            await FirebaseAuth.instance
-                                .signInWithEmailAndPassword(
-                              email: email,
-                              password: password,
-                            );
-                            // ignore: use_build_context_synchronously
-                            Navigator.of(context).pushNamedAndRemoveUntil(
-                                homepageRoute, (route) => false);
-                          } catch (e) {
-                            print(e.toString());
-                            showUserNotFoundDialog(
-                              context,
-                              "Kullanıcı Bulunamadı",
-                            );
+                          if (_formKey.currentState!.validate()) {
+                            final email = _emailController.text;
+                            final password = _passwordController.text;
+                            try {
+                              await FirebaseAuth.instance
+                                  .signInWithEmailAndPassword(
+                                email: email,
+                                password: password,
+                              );
+                              // ignore: use_build_context_synchronously
+                              Navigator.of(context).pushNamedAndRemoveUntil(
+                                  homepageRoute, (route) => false);
+                            } catch (e) {
+                              print(e.toString());
+                              showUserNotFoundDialog(
+                                context,
+                                "Email veya şifreniz yanlıştır",
+                              );
+                            }
                           }
                         },
                         style: ElevatedButton.styleFrom(
