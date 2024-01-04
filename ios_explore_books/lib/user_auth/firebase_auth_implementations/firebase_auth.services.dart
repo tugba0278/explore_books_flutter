@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import 'package:ios_explore_books/utilities/dialogs/email_already_in_use_dialog.dart';
 
 class FirebaseAuthService {
   final _auth = FirebaseAuth.instance;

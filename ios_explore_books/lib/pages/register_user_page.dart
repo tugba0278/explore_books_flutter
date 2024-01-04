@@ -1,7 +1,8 @@
+// ignore_for_file: avoid_print, library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ios_explore_books/routes.dart';
-import 'package:ios_explore_books/services/cloud_database/firebase_cloud_users_crud.dart';
 
 import 'package:ios_explore_books/user_auth/firebase_auth_implementations/firebase_auth.services.dart';
 import 'package:ios_explore_books/utilities/dialogs/email_already_in_use_dialog.dart';
@@ -26,7 +27,6 @@ class _MyFormState extends State<RegisterUser> {
       TextEditingController(); //passwordun girileceği text metnin kontrolünü sağlar
   final TextEditingController _emailController =
       TextEditingController(); //e-mailin girileceği text metnin kontrolünü sağlar
-  final FirebaseCloudStorage _fireBaseCloudStorage = FirebaseCloudStorage();
 
   @override
   void dispose() {
@@ -291,11 +291,6 @@ class _MyFormState extends State<RegisterUser> {
         if (user != null) {
           print("user is succesfully created");
           print(user.toString());
-          final userDocument = _fireBaseCloudStorage.createNewUser(
-            ownerUserId: user.uid,
-            fullName: _fullNameController.text,
-            phoneNumber: _phoneNumberController.text,
-          );
           // ignore: use_build_context_synchronously
           Navigator.pushNamedAndRemoveUntil(
               context, loginPageRoute, (route) => false);

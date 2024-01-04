@@ -1,10 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ios_explore_books/pages/about.dart';
 import 'package:ios_explore_books/pages/author_list_page.dart';
-import 'package:ios_explore_books/services/cms/author_list.dart';
 import 'package:ios_explore_books/pages/child_books.dart';
 import 'package:ios_explore_books/pages/poem_books.dart';
 import 'package:ios_explore_books/pages/polisiye_books.dart';
